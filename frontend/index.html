@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NewsHub - Your Daily News Source</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Slab:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📰</text></svg>">
+</head>
+<body>
+    <!-- Animated Background Elements -->
+    <div class="animated-background">
+        <div class="particles" id="particles"></div>
+        <div class="floating-elements">
+            <div class="floating-element element-1"><i class="fas fa-newspaper"></i></div>
+            <div class="floating-element element-2"><i class="fas fa-globe"></i></div>
+            <div class="floating-element element-3"><i class="fas fa-broadcast-tower"></i></div>
+            <div class="floating-element element-4"><i class="fas fa-satellite"></i></div>
+        </div>
+        <div class="bubbles" id="bubbles"></div>
+        <div class="sparkles" id="sparkles"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-newspaper"></i>
+                <h1>NewsHub</h1>
+                <span class="logo-badge">LIVE</span>
+            </div>
+            <div class="nav-links">
+                <a href="#" class="active"><i class="fas fa-home"></i> Home</a>
+                <a href="#"><i class="fas fa-globe"></i> World</a>
+                <a href="#"><i class="fas fa-chart-line"></i> Business</a>
+                <a href="#"><i class="fas fa-flask"></i> Technology</a>
+                <a href="#"><i class="fas fa-heartbeat"></i> Health</a>
+            </div>
+            <div class="nav-controls">
+                <button class="sound-control" id="globalMuteBtn" title="Toggle Site Sounds">
+                    <i class="fas fa-volume-up"></i>
+                </button>
+                <button class="theme-toggle" id="themeToggle" title="Toggle Theme">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section with Video Background -->
+    <header class="hero">
+        <!-- Video Background -->
+        <div class="video-background">
+            <video autoplay muted loop playsinline id="bgVideo">
+                <source src="video/news2.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            
+            <!-- Video Overlay -->
+            <div class="video-overlay"></div>
+            
+            <!-- Video Controls -->
+            <div class="video-controls">
+                <button class="video-btn sound-btn" id="videoMuteBtn" title="Toggle Video Sound">
+                    <i class="fas fa-volume-up"></i>
+                </button>
+                <button class="video-btn play-btn" id="playBtn" title="Pause/Play Video">
+                    <i class="fas fa-pause"></i>
+                </button>
+                <button class="video-btn effects-btn" id="effectsBtn" title="Toggle Background Effects">
+                    <i class="fas fa-magic"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Glass Effect Container -->
+        <div class="glass-container">
+            <div class="hero-content">
+                <h2 class="hero-title">
+                    <span class="title-line">Stay Informed with</span>
+                    <span class="highlight">Latest News</span>
+                </h2>
+                <p class="hero-subtitle">Search across thousands of news sources worldwide</p>
+                
+                <!-- Animated Date and Time Display -->
+                <div class="datetime-display" id="datetimeDisplay">
+                    <div class="datetime-card">
+                        <div class="datetime-icon">
+                            <i class="fas fa-calendar-day"></i>
+                        </div>
+                        <div class="datetime-content">
+                            <span class="datetime-label">Today's Date</span>
+                            <span class="datetime-value" id="currentDate">Wednesday, January 14, 2026</span>
+                        </div>
+                        <div class="datetime-glow"></div>
+                    </div>
+                    
+                    <div class="datetime-card live-time">
+                        <div class="datetime-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="datetime-content">
+                            <span class="datetime-label">Live Time</span>
+                            <span class="datetime-value" id="currentTime">05:56:17 PM</span>
+                        </div>
+                        <div class="datetime-glow"></div>
+                    </div>
+                    
+                    <div class="datetime-card">
+                        <div class="datetime-icon">
+                            <i class="fas fa-globe-americas"></i>
+                        </div>
+                        <div class="datetime-content">
+                            <span class="datetime-label">Coverage</span>
+                            <span class="datetime-value">30,000+ Sources</span>
+                        </div>
+                        <div class="datetime-glow"></div>
+                    </div>
+                </div>
+        
+        <!-- Floating News Ticker -->
+        <div class="news-ticker">
+            <div class="ticker-container">
+                <span class="ticker-label"><i class="fas fa-bolt"></i> BREAKING</span>
+                <div class="ticker-content" id="tickerContent">
+                    <!-- News headlines will be loaded here -->
+                    <span>Welcome to NewsHub - Your trusted source for global news</span>
+                    <span>• Live news from around the world •</span>
+                    <span>Stay updated with latest developments •</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Search Section -->
+    <section class="search-section">
+        <div class="container">
+            <div class="search-card glass-card">
+                <div class="search-header">
+                    <h3><i class="fas fa-search"></i> Discover News</h3>
+                    <p>Find the latest stories from global sources</p>
+                </div>
+                <form id="newsForm">
+                    <div class="search-row">
+                        <div class="search-input-group">
+                            <i class="fas fa-search"></i>
+                            <input 
+                                type="text" 
+                                id="searchQuery" 
+                                placeholder="What news are you looking for? (technology, sports, business...)" 
+                                required
+                            >
+                            <div class="input-effects">
+                                <div class="input-glow"></div>
+                            </div>
+                        </div>
+                        <button type="submit" class="search-btn pulse-btn">
+                            <i class="fas fa-search"></i> Search News
+                            <div class="btn-glow"></div>
+                        </button>
+                    </div>
+                    
+                    <div class="filters-toggle" id="filtersToggle">
+                        <i class="fas fa-sliders-h"></i> Advanced Filters
+                        <i class="fas fa-chevron-down toggle-icon"></i>
+                    </div>
+                    
+                    <div class="filters-panel" id="filtersPanel">
+                        <div class="filter-grid">
+                            <div class="filter-group">
+                                <label for="fromDate"><i class="far fa-calendar-minus"></i> From Date</label>
+                                <input type="date" id="fromDate">
+                                <div class="input-underline"></div>
+                            </div>
+                            
+                            <div class="filter-group">
+                                <label for="toDate"><i class="far fa-calendar-plus"></i> To Date</label>
+                                <input type="date" id="toDate">
+                                <div class="input-underline"></div>
+                            </div>
+                            
+                            <div class="filter-group">
+                                <label for="language"><i class="fas fa-language"></i> Language</label>
+                                <select id="language">
+                                    <option value="en">English</option>
+                                    <option value="es">Spanish</option>
+                                    <option value="fr">French</option>
+                                    <option value="de">German</option>
+                                    <option value="it">Italian</option>
+                                    <option value="pt">Portuguese</option>
+                                </select>
+                                <div class="select-arrow">
+                                    <i class="fas fa-chevron-down"></i>
+                                </div>
+                            </div>
+                            
+                            <div class="filter-group">
+                                <label for="domains"><i class="fas fa-sitemap"></i> Sources</label>
+                                <input type="text" id="domains" placeholder="e.g., bbc.com, nytimes.com">
+                                <div class="input-underline"></div>
+                            </div>
+                            
+                            <div class="filter-group">
+                                <label for="pageSize"><i class="fas fa-list-ol"></i> Results per page</label>
+                                <select id="pageSize">
+                                    <option value="12">12</option>
+                                    <option value="24" selected>24</option>
+                                    <option value="36">36</option>
+                                    <option value="48">48</option>
+                                </select>
+                                <div class="select-arrow">
+                                    <i class="fas fa-chevron-down"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="filter-actions">
+                            <button type="button" class="secondary-btn" id="resetFilters">
+                                <i class="fas fa-redo"></i> Reset Filters
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            
+            <!-- Quick Search Suggestions -->
+            <div class="quick-search">
+                <h4><i class="fas fa-bolt"></i> Trending Topics</h4>
+                <div class="topic-chips">
+                    <button class="topic-chip" data-query="technology">
+                        <i class="fas fa-microchip"></i> Technology
+                    </button>
+                    <button class="topic-chip" data-query="sports">
+                        <i class="fas fa-futbol"></i> Sports
+                    </button>
+                    <button class="topic-chip" data-query="health">
+                        <i class="fas fa-heartbeat"></i> Health
+                    </button>
+                    <button class="topic-chip" data-query="business">
+                        <i class="fas fa-chart-line"></i> Business
+                    </button>
+                    <button class="topic-chip" data-query="politics">
+                        <i class="fas fa-landmark"></i> Politics
+                    </button>
+                    <button class="topic-chip" data-query="entertainment">
+                        <i class="fas fa-film"></i> Entertainment
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Results Section -->
+    <main class="container">
+        <!-- Loading Animation -->
+        <div id="loading" class="loading-container">
+            <div class="loading-animation">
+                <div class="news-loader">
+                    <div class="newspaper">
+                        <div class="page"></div>
+                        <div class="page"></div>
+                        <div class="page"></div>
+                    </div>
+                </div>
+                <h3>Fetching Latest News</h3>
+                <p>Scanning global sources for you...</p>
+                <div class="loading-progress">
+                    <div class="progress-bar"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Info -->
+        <div id="resultsInfo" class="results-info glass-card" style="display: none;">
+            <div class="results-header">
+                <h3 id="resultsTitle"><i class="fas fa-newspaper"></i> Search Results</h3>
+                <div class="results-stats">
+                    <span class="stat-item">
+                        <i class="fas fa-file-alt"></i>
+                        <span id="totalResults">0</span> articles
+                    </span>
+                    <span class="stat-item">
+                        <i class="fas fa-layer-group"></i>
+                        Page <span id="currentPage">1</span> of <span id="totalPages">1</span>
+                    </span>
+                    <span class="stat-item">
+                        <i class="fas fa-search"></i>
+                        "<span id="searchTerm">...</span>"
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- News Grid -->
+        <div id="newsGrid" class="news-grid"></div>
+
+        <!-- Pagination -->
+        <div id="pagination" class="pagination" style="display: none;">
+            <button id="prevBtn" class="pagination-btn">
+                <i class="fas fa-chevron-left"></i> Previous
+            </button>
+            <div class="page-numbers" id="pageNumbers"></div>
+            <button id="nextBtn" class="pagination-btn">
+                Next <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+
+        <!-- Error Message -->
+        <div id="errorMessage" class="error-message glass-card" style="display: none;">
+            <div class="error-icon">
+                <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <h3>No News Found</h3>
+            <p>Try adjusting your search terms or filters</p>
+            <button onclick="searchNews()" class="secondary-btn retry-btn">
+                <i class="fas fa-redo"></i> Try Again
+            </button>
+        </div>
+
+        <!-- Empty State -->
+        <div id="emptyState" class="empty-state glass-card">
+            <div class="empty-icon">
+                <i class="fas fa-newspaper"></i>
+            </div>
+            <h3>Welcome to NewsHub!</h3>
+            <p>Enter a search term above to discover the latest news from around the world.</p>
+            <div class="empty-suggestions">
+                <p><i class="fas fa-lightbulb"></i> Try searching for:</p>
+                <div class="suggestion-chips">
+                    <button class="suggestion-chip" data-query="technology">
+                        <i class="fas fa-microchip"></i> Technology
+                    </button>
+                    <button class="suggestion-chip" data-query="sports">
+                        <i class="fas fa-futbol"></i> Sports
+                    </button>
+                    <button class="suggestion-chip" data-query="health">
+                        <i class="fas fa-heartbeat"></i> Health
+                    </button>
+                    <button class="suggestion-chip" data-query="business">
+                        <i class="fas fa-chart-line"></i> Business
+                    </button>
+                    <button class="suggestion-chip" data-query="politics">
+                        <i class="fas fa-landmark"></i> Politics
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <div class="footer-logo-icon">
+                        <i class="fas fa-newspaper"></i>
+                    </div>
+                    <h3>NewsHub</h3>
+                    <p>Your trusted source for global news</p>
+                    <div class="footer-social">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h4><i class="fas fa-link"></i> Quick Links</h4>
+                    <a href="#"><i class="fas fa-chevron-right"></i> Home</a>
+                    <a href="#"><i class="fas fa-chevron-right"></i> About Us</a>
+                    <a href="#"><i class="fas fa-chevron-right"></i> Privacy Policy</a>
+                    <a href="#"><i class="fas fa-chevron-right"></i> Contact</a>
+                    <a href="#"><i class="fas fa-chevron-right"></i> Careers</a>
+                </div>
+                
+                <div class="footer-newsletter">
+                    <h4><i class="fas fa-envelope"></i> Newsletter</h4>
+                    <p>Subscribe for daily news updates</p>
+                    <div class="newsletter-form">
+                        <input type="email" placeholder="Your email address">
+                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="footer-stats">
+                    <span><i class="fas fa-satellite-dish"></i> 30,000+ News Sources</span>
+                    <span><i class="fas fa-globe"></i> Global Coverage</span>
+                    <span><i class="fas fa-bolt"></i> Real-time Updates</span>
+                </div>
+                <p>Stay informed, stay curious. News from around the world at your fingertips.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="backToTop" class="back-to-top">
+        <i class="fas fa-chevron-up"></i>
+        <div class="btn-glow"></div>
+    </button>
+
+    <!-- Sound Wave Animation -->
+    <div class="sound-waves" id="soundWaves">
+        <div class="wave wave-1"></div>
+        <div class="wave wave-2"></div>
+        <div class="wave wave-3"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
