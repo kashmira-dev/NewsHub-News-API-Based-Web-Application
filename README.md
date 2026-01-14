@@ -37,4 +37,5 @@ The goal of this project is to demonstrate how to integrate an external API with
 - Responsive and attractive user interface
 
 ---
-
+## (UI)Interface
+![image alt](https://github.com/kashmira-dev/NewsHub-News-API-Based-Web-Application/blob/886b8e417a22f3363de9545bc6fedaf9fec399ad/ss.png)
